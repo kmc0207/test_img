@@ -11,12 +11,12 @@ image_processor = MplugOwlImageProcessor.from_pretrained(pretrained_ckpt)
 tokenizer = AutoTokenizer.from_pretrained(pretrained_ckpt)
 processor = MplugOwlProcessor(image_processor, tokenizer)
 
+device= 'cuda:0'
 
 model = MplugOwlForConditionalGeneration.from_pretrained(
     pretrained_ckpt,
     torch_dtype=torch.bfloat16,
-)
-
+).to(device)
 
 generate_kwargs = {
     'do_sample' : True,
