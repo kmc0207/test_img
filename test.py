@@ -25,8 +25,8 @@ generate_kwargs = {
 }
 
 photo_list = {
-    'hr' : os.listdir('data/haerin_bench/haerin'),
-    'non-hr': os.listdir('data/haerin_bench/non-haerin')
+    'hr' : os.listdir('../data/haerin_bench/haerin'),
+    'non-hr': os.listdir('../data/haerin_bench/non-haerin')
 }
 
 
@@ -36,7 +36,7 @@ Human: <image>
 Human: Who is she?
 AI: ''']
 
-images = [Image.open('data/haerin_bench/haerin/' + photo_list['hr'][0])]
+images = [Image.open('../data/haerin_bench/haerin/' + photo_list['hr'][0])]
 
 inputs = processor(text = prompts, images =images,return_tensors='pt')
 inputs = {k:v.bfloat16() if v.dtype == torch.float else v for k, v in inputs.items()}
