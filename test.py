@@ -3,6 +3,7 @@ from transformers import AutoTokenizer
 from mplug_owl.modeling_mplug_owl import MplugOwlForConditionalGeneration
 from mplug_owl.processing_mplug_owl import MplugOwlImageProcessor, MplugOwlProcessor
 import torch
+import os
 
 pretrained_ckpt = 'MAGAer13/mplug-owl-llama-7b'
 
