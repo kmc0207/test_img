@@ -33,7 +33,7 @@ Human: <image>
 Human: What is her name?
 AI: ''']
 
-images = [Image.open('test_face.png')]
+images = [Image.open('../test_img/test_face.png')]
 
 def test(): 
     inputs = processor(text = prompts, images =images,return_tensors='pt')
