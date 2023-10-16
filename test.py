@@ -4,6 +4,7 @@ from mplug_owl.modeling_mplug_owl import MplugOwlForConditionalGeneration
 from mplug_owl.processing_mplug_owl import MplugOwlImageProcessor, MplugOwlProcessor
 import torch
 import os
+from PIL import Image
 
 pretrained_ckpt = 'MAGAer13/mplug-owl-llama-7b'
 
