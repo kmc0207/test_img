@@ -62,7 +62,7 @@ for param in model.parameters():
 for param in model.language_model.parameters():
     param.requires_grad = True
 
-mask_size = inputs['input_ids'][0].size()
+mask_size = inputs['input_ids'][0].size()[0]
 non_padding_mask = torch.ones([1,mask_size-1]).to(device)
 non_media_mask = torch.ones([1,mask_size-1]).to(device)
 prompt_mask = torch.ones([1,mask_size-1]).to(device)
