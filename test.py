@@ -46,12 +46,14 @@ def test():
 print(test())
 
 
-label_textt = 'Her Name is Haerin'
-label = tokenizer(label_text,return_tensor='pt').to(device)
+
 inputs = processor(text = prompts, images =images,return_tensors='pt')
 inputs = {k:v.bfloat16() if v.dtype == torch.float else v for k, v in inputs.items()}
 inputs = {k : v.to(model.device) for k,v in inputs.items()}
-print('input_ids :', inputs['input_ids'], inputs['input_ids'].size())
+
+
+
+
 print('label :', label, label.size())
 
 #Training only LM
@@ -66,6 +68,17 @@ mask_size = inputs['input_ids'][0].size()[0]
 non_padding_mask = torch.ones([1,mask_size-1]).to(device)
 non_media_mask = torch.ones([1,mask_size-1]).to(device)
 prompt_mask = torch.ones([1,mask_size-1]).to(device)
+label_text = 'Her Name is Haerin'
+label =tokenizer.encode_plus(
+    label_test,
+    add_special_tokens=False,
+    max_length=mask_size,  # 원하는 길이
+    padding='max_length',
+    return_tensors="pt"
+).to(device)
+print('input_ids :', inputs['input_ids'], inputs['input_ids'].size())
+
+
 
 out = model.forward(**inputs,labels= label['input_ids'],num_images=torch.tensor([1]),non_padding_mask = non_padding_mask, non_media_mask = non_media_mask,prompt_mask = prompt_mask)
 loss = out['loss']
