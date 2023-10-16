@@ -59,9 +59,26 @@ print('input_ids :', inputs['input_ids'], inputs['input_ids'].size())
 print('label :', label, label.size())
 
 #Training only LM
+for param in model.parameters():
+    param.requires_grad = False
 
+# vision_model 부분만 require_grad를 True로 설정
+for param in model.language_model.parameters():
+    param.requires_grad = True
 
+mask_size = inputs['input_ids'][0].size()
+non_padding_mask = torch.ones([1,mask_size-1]).to(device)
+non_media_mask = torch.ones([1,mask_size-1]).to(device)
+prompt_mask = torch.ones([1,mask_size-1]).to(device)
 
+out = model.forward(**inputs,labels= label['input_ids'],num_images=torch.tensor([1]),non_padding_mask = non_padding_mask, non_media_mask = non_media_mask,prompt_mask = prompt_mask)
+loss = out['loss']
+optimizer = torch.optim.SGD(model.language_model.parameters(),lr=0.01)
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+
+print(test())
 #Training only Vision Model (Maybe Impossible)
 
 
