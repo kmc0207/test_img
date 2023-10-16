@@ -24,10 +24,7 @@ generate_kwargs = {
     'max_length' : 512,
 }
 
-photo_list = {
-    'hr' : os.listdir('../data/haerin_bench/haerin'),
-    'non-hr': os.listdir('../data/haerin_bench/non-haerin')
-}
+
 
 prompts = [
 '''The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.
@@ -35,8 +32,7 @@ Human: <image>
 Human: What is her name?
 AI: ''']
 
-images = [Image.open('../data/haerin_bench/haerin/' + photo_list['hr'][0])]
-
+images = [Image.open('../test_face.png')]
 
 def test(): 
     inputs = processor(text = prompts, images =images,return_tensors='pt')
